@@ -1,0 +1,6 @@
+@RegistroVisitantes_HostAddress = http://localhost:5297
+
+GET {{RegistroVisitantes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
