@@ -25,23 +25,26 @@ export default function Dashboard() {
       .catch(console.error);
   }, []);
 
-  const cards = [
-    { title: 'Pacientes', value: stats.pacientes, color: '#4f46e5' },
-    { title: 'Medicos', value: stats.medicos, color: '#0891b2' },
-    { title: 'Citas', value: stats.citas, color: '#059669' },
-    { title: 'Medicamentos', value: stats.medicamentos, color: '#d97706' },
-  ];
-
   return (
-    <div className="page">
+    <div>
       <h1>Dashboard</h1>
-      <div className="stats-grid">
-        {cards.map((card) => (
-          <div key={card.title} className="stat-card" style={{ borderTopColor: card.color }}>
-            <h3>{card.title}</h3>
-            <p className="stat-value">{card.value}</p>
-          </div>
-        ))}
+      <div className="stats">
+        <div className="stat-card">
+          <h3>Pacientes</h3>
+          <p>{stats.pacientes}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Medicos</h3>
+          <p>{stats.medicos}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Citas</h3>
+          <p>{stats.citas}</p>
+        </div>
+        <div className="stat-card">
+          <h3>Medicamentos</h3>
+          <p>{stats.medicamentos}</p>
+        </div>
       </div>
     </div>
   );

@@ -9,65 +9,49 @@ export default function Medicos() {
   const [error, setError] = useState('');
 
   const fetchData = () => {
-    medicoService
-      .getAll()
+    medicoService.getAll()
       .then((res) => setItems(res.data))
       .catch((err) => setError(err.message));
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const handleCreate = (data) => {
-    medicoService
-      .create(data)
-      .then(() => {
-        setShowForm(false);
-        fetchData();
-      })
+    medicoService.create(data)
+      .then(() => { setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleUpdate = (data) => {
-    medicoService
-      .update(editingItem.id, data)
-      .then(() => {
-        setEditingItem(null);
-        setShowForm(false);
-        fetchData();
-      })
+    medicoService.update(editingItem.id, data)
+      .then(() => { setEditingItem(null); setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleDelete = (id) => {
-    if (!confirm('¿Eliminar este medico?')) return;
-    medicoService
-      .remove(id)
+    if (!confirm('Eliminar este medico?')) return;
+    medicoService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
   };
 
-  const openEdit = (item) => {
-    setEditingItem(item);
-    setShowForm(true);
-  };
-
-  const openCreate = () => {
-    setEditingItem(null);
-    setShowForm(true);
-  };
-
   return (
-    <div className="page">
+    <div>
       <div className="page-header">
         <h1>Medicos</h1>
-        <button className="btn btn-primary" onClick={openCreate}>
-          + Nuevo Medico
+        <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
+          {showForm ? 'Cerrar' : '+ Nuevo'}
         </button>
       </div>
       {error && <div className="error">{error}</div>}
-      <table className="table">
+      {showForm && (
+        <MedicoForm
+          onSubmit={editingItem ? handleUpdate : handleCreate}
+          editingItem={editingItem}
+          onCancel={() => { setShowForm(false); setEditingItem(null); }}
+        />
+      )}
+      <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -88,35 +72,21 @@ export default function Medicos() {
               <td>{item.especialidad}</td>
               <td>{item.telefono}</td>
               <td>{item.email}</td>
-              <td className="actions">
-                <button className="btn btn-sm btn-edit" onClick={() => openEdit(item)}>
+              <td>
+                <button className="btn btn-edit" onClick={() => { setEditingItem(item); setShowForm(true); }}>
                   Editar
                 </button>
-                <button className="btn btn-sm btn-delete" onClick={() => handleDelete(item.id)}>
+                <button className="btn btn-delete" onClick={() => handleDelete(item.id)}>
                   Eliminar
                 </button>
               </td>
             </tr>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={7} className="empty">
-                No hay medicos registrados
-              </td>
-            </tr>
+            <tr><td colSpan={7} className="empty">No hay medicos</td></tr>
           )}
         </tbody>
       </table>
-      {showForm && (
-        <MedicoForm
-          onSubmit={editingItem ? handleUpdate : handleCreate}
-          editingItem={editingItem}
-          onCancel={() => {
-            setShowForm(false);
-            setEditingItem(null);
-          }}
-        />
-      )}
     </div>
   );
 }

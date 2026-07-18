@@ -13,11 +13,7 @@ export default function Citas() {
   const [error, setError] = useState('');
 
   const fetchData = () => {
-    Promise.all([
-      citaService.getAll(),
-      pacienteService.getAll(),
-      medicoService.getAll(),
-    ])
+    Promise.all([citaService.getAll(), pacienteService.getAll(), medicoService.getAll()])
       .then(([citas, pacs, meds]) => {
         setItems(citas.data);
         setPacientes(pacs.data);
@@ -26,57 +22,30 @@ export default function Citas() {
       .catch((err) => setError(err.message));
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const handleCreate = (data) => {
-    citaService
-      .create(data)
-      .then(() => {
-        setShowForm(false);
-        fetchData();
-      })
+    citaService.create(data)
+      .then(() => { setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleUpdate = (data) => {
-    citaService
-      .update(editingItem.id, data)
-      .then(() => {
-        setEditingItem(null);
-        setShowForm(false);
-        fetchData();
-      })
+    citaService.update(editingItem.id, data)
+      .then(() => { setEditingItem(null); setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleDelete = (id) => {
-    if (!confirm('¿Eliminar esta cita?')) return;
-    citaService
-      .remove(id)
+    if (!confirm('Eliminar esta cita?')) return;
+    citaService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
   };
 
-  const openEdit = (item) => {
-    setEditingItem(item);
-    setShowForm(true);
-  };
-
-  const openCreate = () => {
-    setEditingItem(null);
-    setShowForm(true);
-  };
-
-  const getPacienteNombre = (id) => {
-    const p = pacientes.find((x) => x.id === id);
-    return p ? `${p.nombre} ${p.apellido}` : id;
-  };
-
-  const getMedicoNombre = (id) => {
-    const m = medicos.find((x) => x.id === id);
-    return m ? `${m.nombre} ${m.apellido}` : id;
+  const getNombre = (lista, id) => {
+    const item = lista.find((x) => x.id === id);
+    return item ? `${item.nombre} ${item.apellido}` : id;
   };
 
   const formatDate = (dateStr) => {
@@ -85,15 +54,24 @@ export default function Citas() {
   };
 
   return (
-    <div className="page">
+    <div>
       <div className="page-header">
         <h1>Citas</h1>
-        <button className="btn btn-primary" onClick={openCreate}>
-          + Nueva Cita
+        <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
+          {showForm ? 'Cerrar' : '+ Nueva'}
         </button>
       </div>
       {error && <div className="error">{error}</div>}
-      <table className="table">
+      {showForm && (
+        <CitaForm
+          onSubmit={editingItem ? handleUpdate : handleCreate}
+          editingItem={editingItem}
+          onCancel={() => { setShowForm(false); setEditingItem(null); }}
+          pacientes={pacientes}
+          medicos={medicos}
+        />
+      )}
+      <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -109,8 +87,8 @@ export default function Citas() {
           {items.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
-              <td>{getPacienteNombre(item.pacienteId)}</td>
-              <td>{getMedicoNombre(item.medicoId)}</td>
+              <td>{getNombre(pacientes, item.pacienteId)}</td>
+              <td>{getNombre(medicos, item.medicoId)}</td>
               <td>{formatDate(item.fechaHora)}</td>
               <td>{item.motivo}</td>
               <td>
@@ -118,37 +96,21 @@ export default function Citas() {
                   {item.estado}
                 </span>
               </td>
-              <td className="actions">
-                <button className="btn btn-sm btn-edit" onClick={() => openEdit(item)}>
+              <td>
+                <button className="btn btn-edit" onClick={() => { setEditingItem(item); setShowForm(true); }}>
                   Editar
                 </button>
-                <button className="btn btn-sm btn-delete" onClick={() => handleDelete(item.id)}>
+                <button className="btn btn-delete" onClick={() => handleDelete(item.id)}>
                   Eliminar
                 </button>
               </td>
             </tr>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={7} className="empty">
-                No hay citas registradas
-              </td>
-            </tr>
+            <tr><td colSpan={7} className="empty">No hay citas</td></tr>
           )}
         </tbody>
       </table>
-      {showForm && (
-        <CitaForm
-          onSubmit={editingItem ? handleUpdate : handleCreate}
-          editingItem={editingItem}
-          onCancel={() => {
-            setShowForm(false);
-            setEditingItem(null);
-          }}
-          pacientes={pacientes}
-          medicos={medicos}
-        />
-      )}
     </div>
   );
 }

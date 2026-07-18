@@ -40,44 +40,37 @@ export default function PacienteForm({ onSubmit, editingItem, onCancel }) {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h3>{editingItem ? 'Editar Paciente' : 'Nuevo Paciente'}</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nombre
-            <input name="nombre" value={form.nombre} onChange={handleChange} required />
-          </label>
-          <label>
-            Apellido
-            <input name="apellido" value={form.apellido} onChange={handleChange} required />
-          </label>
-          <label>
-            Fecha de Nacimiento
-            <input name="fechaNacimiento" type="date" value={form.fechaNacimiento} onChange={handleChange} required />
-          </label>
-          <label>
-            Telefono
-            <input name="telefono" value={form.telefono} onChange={handleChange} />
-          </label>
-          <label>
-            Email
-            <input name="email" type="email" value={form.email} onChange={handleChange} />
-          </label>
-          <label>
-            Direccion
-            <input name="direccion" value={form.direccion} onChange={handleChange} />
-          </label>
-          <div className="modal-actions">
-            <button type="submit" className="btn btn-primary">
-              {editingItem ? 'Actualizar' : 'Guardar'}
-            </button>
-            <button type="button" className="btn btn-secondary" onClick={onCancel}>
-              Cancelar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <form className="form-row" onSubmit={handleSubmit}>
+      <label>
+        Nombre
+        <input name="nombre" value={form.nombre} onChange={handleChange} required />
+      </label>
+      <label>
+        Apellido
+        <input name="apellido" value={form.apellido} onChange={handleChange} required />
+      </label>
+      <label>
+        Fecha Nac.
+        <input name="fechaNacimiento" type="date" value={form.fechaNacimiento} onChange={handleChange} required />
+      </label>
+      <label>
+        Telefono
+        <input name="telefono" value={form.telefono} onChange={handleChange} />
+      </label>
+      <label>
+        Email
+        <input name="email" type="email" value={form.email} onChange={handleChange} />
+      </label>
+      <label>
+        Direccion
+        <input name="direccion" value={form.direccion} onChange={handleChange} />
+      </label>
+      <button type="submit" className="btn btn-primary">
+        {editingItem ? 'Actualizar' : 'Guardar'}
+      </button>
+      <button type="button" className="btn btn-secondary" onClick={onCancel}>
+        Cancelar
+      </button>
+    </form>
   );
 }

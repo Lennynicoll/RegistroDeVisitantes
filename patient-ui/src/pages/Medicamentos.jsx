@@ -9,65 +9,49 @@ export default function Medicamentos() {
   const [error, setError] = useState('');
 
   const fetchData = () => {
-    medicamentoService
-      .getAll()
+    medicamentoService.getAll()
       .then((res) => setItems(res.data))
       .catch((err) => setError(err.message));
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const handleCreate = (data) => {
-    medicamentoService
-      .create(data)
-      .then(() => {
-        setShowForm(false);
-        fetchData();
-      })
+    medicamentoService.create(data)
+      .then(() => { setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleUpdate = (data) => {
-    medicamentoService
-      .update(editingItem.id, data)
-      .then(() => {
-        setEditingItem(null);
-        setShowForm(false);
-        fetchData();
-      })
+    medicamentoService.update(editingItem.id, data)
+      .then(() => { setEditingItem(null); setShowForm(false); fetchData(); })
       .catch((err) => setError(err.message));
   };
 
   const handleDelete = (id) => {
-    if (!confirm('¿Eliminar este medicamento?')) return;
-    medicamentoService
-      .remove(id)
+    if (!confirm('Eliminar este medicamento?')) return;
+    medicamentoService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
   };
 
-  const openEdit = (item) => {
-    setEditingItem(item);
-    setShowForm(true);
-  };
-
-  const openCreate = () => {
-    setEditingItem(null);
-    setShowForm(true);
-  };
-
   return (
-    <div className="page">
+    <div>
       <div className="page-header">
         <h1>Medicamentos</h1>
-        <button className="btn btn-primary" onClick={openCreate}>
-          + Nuevo Medicamento
+        <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
+          {showForm ? 'Cerrar' : '+ Nuevo'}
         </button>
       </div>
       {error && <div className="error">{error}</div>}
-      <table className="table">
+      {showForm && (
+        <MedicamentoForm
+          onSubmit={editingItem ? handleUpdate : handleCreate}
+          editingItem={editingItem}
+          onCancel={() => { setShowForm(false); setEditingItem(null); }}
+        />
+      )}
+      <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -86,35 +70,21 @@ export default function Medicamentos() {
               <td>{item.descripcion}</td>
               <td>{item.presentacion}</td>
               <td>{item.concentracion}</td>
-              <td className="actions">
-                <button className="btn btn-sm btn-edit" onClick={() => openEdit(item)}>
+              <td>
+                <button className="btn btn-edit" onClick={() => { setEditingItem(item); setShowForm(true); }}>
                   Editar
                 </button>
-                <button className="btn btn-sm btn-delete" onClick={() => handleDelete(item.id)}>
+                <button className="btn btn-delete" onClick={() => handleDelete(item.id)}>
                   Eliminar
                 </button>
               </td>
             </tr>
           ))}
           {items.length === 0 && (
-            <tr>
-              <td colSpan={6} className="empty">
-                No hay medicamentos registrados
-              </td>
-            </tr>
+            <tr><td colSpan={6} className="empty">No hay medicamentos</td></tr>
           )}
         </tbody>
       </table>
-      {showForm && (
-        <MedicamentoForm
-          onSubmit={editingItem ? handleUpdate : handleCreate}
-          editingItem={editingItem}
-          onCancel={() => {
-            setShowForm(false);
-            setEditingItem(null);
-          }}
-        />
-      )}
     </div>
   );
 }
