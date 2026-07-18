@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using RegistroVisitantes.Domain.Entities;
-using RegistroVisitantes.Infrastructure.Interfaces;
-using RegistroVisitantes.Infrastructure.Models;
+using RegistroVisitantes.Application.Contract;
+using RegistroVisitantes.Application.Dtos.Visita;
 
 namespace RegistroVisitantes.Infrastructure.Controllers
 {
@@ -9,90 +8,46 @@ namespace RegistroVisitantes.Infrastructure.Controllers
     [ApiController]
     public class VisitasController : ControllerBase
     {
-        private readonly IVisitaRepository _visitaRepository;
+        private readonly IVisitaService _visitaService;
 
-        public VisitasController(IVisitaRepository visitaRepository)
+        public VisitasController(IVisitaService visitaService)
         {
-            _visitaRepository = visitaRepository;
+            _visitaService = visitaService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VisitaDTO>>> GetVisitas()
         {
-            var visitas = await _visitaRepository.GetAllAsync();
-            var visitasDto = visitas.Select(v => new VisitaDTO
-            {
-                Id = v.Id,
-                FechaHora = v.FechaHora,
-                Motivo = v.Motivo,
-                Comentarios = v.Comentarios,
-                VisitanteId = v.VisitanteId
-            }).ToList();
-
-            return Ok(visitasDto);
+            var visitas = await _visitaService.GetAllAsync();
+            return Ok(visitas);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<VisitaDTO>> GetVisita(int id)
         {
-            var visita = await _visitaRepository.GetByIdAsync(id);
+            var visita = await _visitaService.GetByIdAsync(id);
             if (visita == null)
-            {
                 return NotFound();
-            }
 
-            var visitaDto = new VisitaDTO
-            {
-                Id = visita.Id,
-                FechaHora = visita.FechaHora,
-                Motivo = visita.Motivo,
-                Comentarios = visita.Comentarios,
-                VisitanteId = visita.VisitanteId
-            };
-
-            return Ok(visitaDto);
+            return Ok(visita);
         }
 
         [HttpPost]
         public async Task<ActionResult<VisitaDTO>> PostVisita(VisitaDTO visitaDto)
         {
-            var visita = new Visita
-            {
-                FechaHora = visitaDto.FechaHora,
-                Motivo = visitaDto.Motivo,
-                Comentarios = visitaDto.Comentarios,
-                VisitanteId = visitaDto.VisitanteId
-            };
+            var result = await _visitaService.CreateWithValidationAsync(visitaDto);
+            if (!result.Success)
+                return BadRequest(new { errors = result.Errors });
 
-            var created = await _visitaRepository.CreateAsync(visita);
-
-            visitaDto.Id = created.Id;
-
-            return CreatedAtAction(nameof(GetVisita), new { id = created.Id }, visitaDto);
+            return CreatedAtAction(nameof(GetVisita), new { id = ((VisitaDTO)result.Data!).Id }, result.Data);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVisita(int id, VisitaDTO visitaDto)
         {
-            if (id != visitaDto.Id)
-            {
-                return BadRequest();
-            }
-
-            var visita = new Visita
-            {
-                Id = visitaDto.Id,
-                FechaHora = visitaDto.FechaHora,
-                Motivo = visitaDto.Motivo,
-                Comentarios = visitaDto.Comentarios,
-                VisitanteId = visitaDto.VisitanteId
-            };
-
-            var updated = await _visitaRepository.UpdateAsync(id, visita);
-            if (updated == null)
-            {
-                return NotFound();
-            }
+            var result = await _visitaService.UpdateWithValidationAsync(id, visitaDto);
+            if (!result.Success)
+                return BadRequest(new { errors = result.Errors });
 
             return NoContent();
         }
@@ -100,13 +55,18 @@ namespace RegistroVisitantes.Infrastructure.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVisita(int id)
         {
-            var deleted = await _visitaRepository.DeleteAsync(id);
+            var deleted = await _visitaService.DeleteAsync(id);
             if (!deleted)
-            {
                 return NotFound();
-            }
 
             return NoContent();
+        }
+
+        [HttpGet("visitante/{visitanteId}")]
+        public async Task<ActionResult<IEnumerable<VisitaDTO>>> GetByVisitanteId(int visitanteId)
+        {
+            var visitas = await _visitaService.GetByVisitanteIdAsync(visitanteId);
+            return Ok(visitas);
         }
     }
 }

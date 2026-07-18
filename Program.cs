@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RegistroVisitantes.Infrastructure.Context;
 using RegistroVisitantes.Infrastructure.Interfaces;
 using RegistroVisitantes.Infrastructure.Repositories;
+using RegistroVisitantes.Application.Contract;
+using RegistroVisitantes.Application.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IVisitanteRepository, VisitanteRepository>();
 builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
+
+builder.Services.AddScoped<IVisitanteService, VisitanteService>();
+builder.Services.AddScoped<IVisitaService, VisitaService>();
 
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(RegistroVisitantes.Infrastructure.Controllers.VisitantesController).Assembly);

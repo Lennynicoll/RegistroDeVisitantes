@@ -4,7 +4,7 @@ using RegistroVisitantes.Infrastructure.Context;
 
 namespace RegistroVisitantes.Infrastructure.Core
 {
-    public class BaseRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         protected readonly ApplicationDbContext _context;
 
