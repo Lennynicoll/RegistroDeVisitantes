@@ -21,14 +21,6 @@ RegistroVisitantes.Infrastructure/
 └── Repositories/VisitanteRepository.cs, VisitaRepository.cs
 ```
 
-## Cómo correr
-
-```
-dotnet run
-```
-
-El API arranca en http://localhost:5297
-
 ## Endpoints
 
 | Método | Ruta | Descripción |
