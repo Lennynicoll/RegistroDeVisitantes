@@ -5,12 +5,12 @@ export default function Layout() {
   return (
     <div>
       <header className="header">
-        <h1>Sistema de Salud</h1>
+        <h1>Sistema de Registro de Visitantes</h1>
         <nav>
           <NavLink to="/">Dashboard</NavLink>
-          <NavLink to="/pacientes">Pacientes</NavLink>
-          <NavLink to="/medicos">Medicos</NavLink>
-          <NavLink to="/citas">Citas</NavLink>
+          <NavLink to="/pacientes">Visitantes</NavLink>
+          <NavLink to="/medicos">Anfitriones</NavLink>
+          <NavLink to="/citas">Registro de Visitas</NavLink>
           <NavLink to="/medicamentos">Medicamentos</NavLink>
           <NavLink to="/especialidades">Especialidades</NavLink>
           <NavLink to="/departamentos">Departamentos</NavLink>

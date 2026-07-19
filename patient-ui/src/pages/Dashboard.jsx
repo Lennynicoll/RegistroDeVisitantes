@@ -30,15 +30,15 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <div className="stats">
         <div className="stat-card">
-          <h3>Pacientes</h3>
+          <h3>Visitantes</h3>
           <p>{stats.pacientes}</p>
         </div>
         <div className="stat-card">
-          <h3>Medicos</h3>
+          <h3>Anfitriones</h3>
           <p>{stats.medicos}</p>
         </div>
         <div className="stat-card">
-          <h3>Citas</h3>
+          <h3>Visitas</h3>
           <p>{stats.citas}</p>
         </div>
         <div className="stat-card">

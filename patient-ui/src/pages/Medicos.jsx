@@ -29,7 +29,7 @@ export default function Medicos() {
   };
 
   const handleDelete = (id) => {
-    if (!confirm('Eliminar este medico?')) return;
+    if (!confirm('Eliminar este anfitrion?')) return;
     medicoService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
@@ -38,7 +38,7 @@ export default function Medicos() {
   return (
     <div>
       <div className="page-header">
-        <h1>Medicos</h1>
+        <h1>Anfitriones</h1>
         <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
           {showForm ? 'Cerrar' : '+ Nuevo'}
         </button>
@@ -83,7 +83,7 @@ export default function Medicos() {
             </tr>
           ))}
           {items.length === 0 && (
-            <tr><td colSpan={7} className="empty">No hay medicos</td></tr>
+            <tr><td colSpan={7} className="empty">No hay anfitriones</td></tr>
           )}
         </tbody>
       </table>

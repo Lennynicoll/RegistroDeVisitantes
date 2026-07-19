@@ -29,7 +29,7 @@ export default function Pacientes() {
   };
 
   const handleDelete = (id) => {
-    if (!confirm('Eliminar este paciente?')) return;
+    if (!confirm('Eliminar este visitante?')) return;
     pacienteService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
@@ -38,7 +38,7 @@ export default function Pacientes() {
   return (
     <div>
       <div className="page-header">
-        <h1>Pacientes</h1>
+        <h1>Visitantes</h1>
         <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
           {showForm ? 'Cerrar' : '+ Nuevo'}
         </button>
@@ -81,7 +81,7 @@ export default function Pacientes() {
             </tr>
           ))}
           {items.length === 0 && (
-            <tr><td colSpan={6} className="empty">No hay pacientes</td></tr>
+            <tr><td colSpan={6} className="empty">No hay visitantes</td></tr>
           )}
         </tbody>
       </table>

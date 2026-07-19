@@ -37,7 +37,7 @@ export default function Citas() {
   };
 
   const handleDelete = (id) => {
-    if (!confirm('Eliminar esta cita?')) return;
+    if (!confirm('Eliminar esta visita?')) return;
     citaService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
@@ -56,7 +56,7 @@ export default function Citas() {
   return (
     <div>
       <div className="page-header">
-        <h1>Citas</h1>
+        <h1>Registro de Visitas</h1>
         <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
           {showForm ? 'Cerrar' : '+ Nueva'}
         </button>
@@ -107,7 +107,7 @@ export default function Citas() {
             </tr>
           ))}
           {items.length === 0 && (
-            <tr><td colSpan={7} className="empty">No hay citas</td></tr>
+            <tr><td colSpan={7} className="empty">No hay visitas registradas</td></tr>
           )}
         </tbody>
       </table>
