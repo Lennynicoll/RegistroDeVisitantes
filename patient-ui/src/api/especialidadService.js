@@ -1,6 +1,6 @@
 import api from './axiosConfig';
 
-const endpoint = '/Especialidades';
+const endpoint = '/MotivosVisita';
 
 export const getAll = () => api.get(endpoint);
 export const getById = (id) => api.get(`${endpoint}/${id}`);

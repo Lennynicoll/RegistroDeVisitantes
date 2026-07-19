@@ -12,17 +12,17 @@ namespace RegistroVisitantes.Infrastructure.Context
 
         public DbSet<Visitante> Visitantes { get; set; }
         public DbSet<Visita> Visitas { get; set; }
-        public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<Medico> Medicos { get; set; }
-        public DbSet<Especialidad> Especialidades { get; set; }
+        public DbSet<RegistroVisitante> RegistroVisitantes { get; set; }
+        public DbSet<Anfitrion> Anfitriones { get; set; }
+        public DbSet<MotivoVisita> MotivosVisita { get; set; }
         public DbSet<Departamento> Departamentos { get; set; }
-        public DbSet<Cita> Citas { get; set; }
-        public DbSet<HistorialClinico> HistorialesClinicos { get; set; }
-        public DbSet<Diagnostico> Diagnosticos { get; set; }
-        public DbSet<Medicamento> Medicamentos { get; set; }
-        public DbSet<RecetaMedica> RecetasMedicas { get; set; }
-        public DbSet<DetalleReceta> DetallesReceta { get; set; }
-        public DbSet<SeguroMedico> SegurosMedicos { get; set; }
-        public DbSet<PacienteSeguro> PacienteSeguros { get; set; }
+        public DbSet<RegistroVisita> RegistroVisitas { get; set; }
+        public DbSet<HistorialVisitas> HistorialesVisitas { get; set; }
+        public DbSet<NotaVisita> NotasVisita { get; set; }
+        public DbSet<Oficina> Oficinas { get; set; }
+        public DbSet<PermisoVisita> PermisosVisita { get; set; }
+        public DbSet<DetallePermiso> DetallesPermiso { get; set; }
+        public DbSet<SeguridadEdificio> SeguridadEdificios { get; set; }
+        public DbSet<VisitanteSeguro> VisitanteSeguros { get; set; }
     }
 }

@@ -13,33 +13,33 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IVisitanteRepository, VisitanteRepository>();
 builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
-builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
-builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
-builder.Services.AddScoped<IEspecialidadRepository, EspecialidadRepository>();
+builder.Services.AddScoped<IRegistroVisitanteRepository, RegistroVisitanteRepository>();
+builder.Services.AddScoped<IAnfitrionRepository, AnfitrionRepository>();
+builder.Services.AddScoped<IMotivoVisitaRepository, MotivoVisitaRepository>();
 builder.Services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
-builder.Services.AddScoped<ICitaRepository, CitaRepository>();
-builder.Services.AddScoped<IHistorialClinicoRepository, HistorialClinicoRepository>();
-builder.Services.AddScoped<IDiagnosticoRepository, DiagnosticoRepository>();
-builder.Services.AddScoped<IMedicamentoRepository, MedicamentoRepository>();
-builder.Services.AddScoped<IRecetaMedicaRepository, RecetaMedicaRepository>();
-builder.Services.AddScoped<IDetalleRecetaRepository, DetalleRecetaRepository>();
-builder.Services.AddScoped<ISeguroMedicoRepository, SeguroMedicoRepository>();
-builder.Services.AddScoped<IPacienteSeguroRepository, PacienteSeguroRepository>();
+builder.Services.AddScoped<IRegistroVisitaRepository, RegistroVisitaRepository>();
+builder.Services.AddScoped<IHistorialVisitasRepository, HistorialVisitasRepository>();
+builder.Services.AddScoped<INotaVisitaRepository, NotaVisitaRepository>();
+builder.Services.AddScoped<IOficinaRepository, OficinaRepository>();
+builder.Services.AddScoped<IPermisoVisitaRepository, PermisoVisitaRepository>();
+builder.Services.AddScoped<IDetallePermisoRepository, DetallePermisoRepository>();
+builder.Services.AddScoped<ISeguridadEdificioRepository, SeguridadEdificioRepository>();
+builder.Services.AddScoped<IVisitanteSeguroRepository, VisitanteSeguroRepository>();
 
 builder.Services.AddScoped<IVisitanteService, VisitanteService>();
 builder.Services.AddScoped<IVisitaService, VisitaService>();
-builder.Services.AddScoped<IPacienteService, PacienteService>();
-builder.Services.AddScoped<IMedicoService, MedicoService>();
-builder.Services.AddScoped<IEspecialidadService, EspecialidadService>();
+builder.Services.AddScoped<IRegistroVisitanteService, RegistroVisitanteService>();
+builder.Services.AddScoped<IAnfitrionService, AnfitrionService>();
+builder.Services.AddScoped<IMotivoVisitaService, MotivoVisitaService>();
 builder.Services.AddScoped<IDepartamentoService, DepartamentoService>();
-builder.Services.AddScoped<ICitaService, CitaService>();
-builder.Services.AddScoped<IHistorialClinicoService, HistorialClinicoService>();
-builder.Services.AddScoped<IDiagnosticoService, DiagnosticoService>();
-builder.Services.AddScoped<IMedicamentoService, MedicamentoService>();
-builder.Services.AddScoped<IRecetaMedicaService, RecetaMedicaService>();
-builder.Services.AddScoped<IDetalleRecetaService, DetalleRecetaService>();
-builder.Services.AddScoped<ISeguroMedicoService, SeguroMedicoService>();
-builder.Services.AddScoped<IPacienteSeguroService, PacienteSeguroService>();
+builder.Services.AddScoped<IRegistroVisitaService, RegistroVisitaService>();
+builder.Services.AddScoped<IHistorialVisitasService, HistorialVisitasService>();
+builder.Services.AddScoped<INotaVisitaService, NotaVisitaService>();
+builder.Services.AddScoped<IOficinaService, OficinaService>();
+builder.Services.AddScoped<IPermisoVisitaService, PermisoVisitaService>();
+builder.Services.AddScoped<IDetallePermisoService, DetallePermisoService>();
+builder.Services.AddScoped<ISeguridadEdificioService, SeguridadEdificioService>();
+builder.Services.AddScoped<IVisitanteSeguroService, VisitanteSeguroService>();
 
 builder.Services.AddCors(options =>
 {

@@ -1,6 +1,6 @@
 import api from './axiosConfig';
 
-const endpoint = '/Medicamentos';
+const endpoint = '/Oficinas';
 
 export const getAll = () => api.get(endpoint);
 export const getById = (id) => api.get(`${endpoint}/${id}`);
