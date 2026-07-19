@@ -44,11 +44,11 @@ export default function MedicamentoForm({ onSubmit, editingItem, onCancel }) {
         <input name="descripcion" value={form.descripcion} onChange={handleChange} />
       </label>
       <label>
-        Presentacion
+        Ubicacion
         <input name="presentacion" value={form.presentacion} onChange={handleChange} />
       </label>
       <label>
-        Concentracion
+        Capacidad
         <input name="concentracion" value={form.concentracion} onChange={handleChange} />
       </label>
       <button type="submit" className="btn btn-primary">

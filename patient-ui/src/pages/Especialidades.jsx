@@ -27,7 +27,7 @@ export default function Especialidades() {
   };
 
   const handleDelete = (id) => {
-    if (!confirm('Eliminar esta especialidad?')) return;
+    if (!confirm('Eliminar este motivo?')) return;
     especialidadService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
@@ -36,7 +36,7 @@ export default function Especialidades() {
   return (
     <div>
       <div className="page-header">
-        <h1>Especialidades</h1>
+        <h1>Motivos de Visita</h1>
         <button className="btn btn-primary" onClick={() => { setForm({ nombre: '', descripcion: '' }); setEditingItem(null); setShowForm(!showForm); }}>
           {showForm ? 'Cerrar' : '+ Nueva'}
         </button>
@@ -86,7 +86,7 @@ export default function Especialidades() {
             </tr>
           ))}
           {items.length === 0 && (
-            <tr><td colSpan={4} className="empty">No hay especialidades</td></tr>
+            <tr><td colSpan={4} className="empty">No hay motivos de visita</td></tr>
           )}
         </tbody>
       </table>

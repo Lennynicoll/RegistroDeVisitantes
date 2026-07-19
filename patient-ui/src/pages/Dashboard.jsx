@@ -42,7 +42,7 @@ export default function Dashboard() {
           <p>{stats.citas}</p>
         </div>
         <div className="stat-card">
-          <h3>Medicamentos</h3>
+          <h3>Oficinas</h3>
           <p>{stats.medicamentos}</p>
         </div>
       </div>

@@ -11,8 +11,8 @@ export default function Layout() {
           <NavLink to="/pacientes">Visitantes</NavLink>
           <NavLink to="/medicos">Anfitriones</NavLink>
           <NavLink to="/citas">Registro de Visitas</NavLink>
-          <NavLink to="/medicamentos">Medicamentos</NavLink>
-          <NavLink to="/especialidades">Especialidades</NavLink>
+          <NavLink to="/medicamentos">Oficinas</NavLink>
+          <NavLink to="/especialidades">Motivos de Visita</NavLink>
           <NavLink to="/departamentos">Departamentos</NavLink>
         </nav>
       </header>

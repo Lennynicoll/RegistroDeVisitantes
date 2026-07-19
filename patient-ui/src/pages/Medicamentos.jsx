@@ -29,7 +29,7 @@ export default function Medicamentos() {
   };
 
   const handleDelete = (id) => {
-    if (!confirm('Eliminar este medicamento?')) return;
+    if (!confirm('Eliminar esta oficina?')) return;
     medicamentoService.remove(id)
       .then(() => fetchData())
       .catch((err) => setError(err.message));
@@ -38,7 +38,7 @@ export default function Medicamentos() {
   return (
     <div>
       <div className="page-header">
-        <h1>Medicamentos</h1>
+        <h1>Oficinas</h1>
         <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowForm(!showForm); }}>
           {showForm ? 'Cerrar' : '+ Nuevo'}
         </button>
@@ -57,8 +57,8 @@ export default function Medicamentos() {
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripcion</th>
-            <th>Presentacion</th>
-            <th>Concentracion</th>
+            <th>Ubicacion</th>
+            <th>Capacidad</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -81,7 +81,7 @@ export default function Medicamentos() {
             </tr>
           ))}
           {items.length === 0 && (
-            <tr><td colSpan={6} className="empty">No hay medicamentos</td></tr>
+            <tr><td colSpan={6} className="empty">No hay oficinas</td></tr>
           )}
         </tbody>
       </table>
